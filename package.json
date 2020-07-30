@@ -1,0 +1,13 @@
+{
+  "name": "komisia",
+  "version": "1.0.0",
+  "description": "WebRTC video conferencing for InfoEducație 2020",
+  "main": "index.js",
+  "repository": "https://github.com/CiRIP/komisia",
+  "author": "Ciprian Ionescu",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "mediasoup": "^3.6.14"
+  }
+}
