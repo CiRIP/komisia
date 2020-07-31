@@ -1,8 +1,7 @@
 const EventEmitter = require('events').EventEmitter;
 const protoo = require('protoo-server');
-const Logger = require('../Logger');
+const Logger = require('../logger');
 const config = require('../../config');
-const Bot = require('../bot');
 
 const logger = new Logger('Room');
 
@@ -23,18 +22,15 @@ class Room extends EventEmitter {
 				interval: 800
 			});
 
-		const bot = await Bot.create({ mediasoupRouter });
-
 		return new Room(
 			roomId,
 			protooRoom,
 			mediasoupRouter,
 			audioLevelObserver,
-			bot
 		);
 	}
 
-	constructor(roomId, protooRoom, mediasoupRouter, audioLevelObserver, bot) {
+	constructor(roomId, protooRoom, mediasoupRouter, audioLevelObserver) {
 		super();
 		this.setMaxListeners(Infinity);
 		
@@ -44,7 +40,6 @@ class Room extends EventEmitter {
 		this._broadcasters = new Map();
 		this._mediasoupRouter = mediasoupRouter;
 		this._audioLevelObserver = audioLevelObserver;
-		this._bot = bot;
 
 		this._handleAudioLevelObserver();
 	}
@@ -56,7 +51,6 @@ class Room extends EventEmitter {
 
 		this._protooRoom.close();
 		this._mediasoupRouter.close();
-		this._bot.close();
 
 		this.emit('close');
 	}
@@ -353,7 +347,7 @@ class Room extends EventEmitter {
 	async _createDataConsumer(
 		{
 			dataConsumerPeer,
-			dataProducerPeer = null, // This is null for the bot DataProducer.
+			dataProducerPeer = null,
 			dataProducer
 		}) {
 		// NOTE: Don't create the DataConsumer if the remote Peer cannot consume it.
@@ -409,7 +403,6 @@ class Room extends EventEmitter {
 			await dataConsumerPeer.request(
 				'newDataConsumer',
 				{
-					// This is null for bot DataProducer.
 					peerId: dataProducerPeer ? dataProducerPeer.id : null,
 					dataProducerId: dataProducer.id,
 					id: dataConsumer.id,
