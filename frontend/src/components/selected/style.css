@@ -1,0 +1,34 @@
+@media (min-width: 640px) {
+	.selected {
+		height: 20rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.selected {
+		height: 24rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.selected {
+		height: 32rem;
+	}
+}
+
+@media (min-width: 1280px) {
+	.selected {
+		height: 42rem;
+	}
+}
+
+.close {
+	background: rgba(0, 0, 0, 0.25);
+	z-index: 999;
+	opacity: 0;
+	transition: opacity 0.15s ease-in-out;
+}
+
+.selected:hover .close {
+	opacity: 1;
+}
