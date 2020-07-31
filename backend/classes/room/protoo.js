@@ -83,12 +83,10 @@ module.exports = function (Room, logger) {
 						}
 					}
 
-					// Create DataConsumers for bot DataProducer.
 					this._createDataConsumer(
 						{
 							dataConsumerPeer: peer,
 							dataProducerPeer: null,
-							dataProducer: this._bot.dataProducer
 						});
 
 					// Notify the new Peer to all other Peers.
@@ -492,18 +490,6 @@ module.exports = function (Room, logger) {
 											dataProducer
 										});
 								}
-
-								break;
-							}
-
-						case 'bot':
-							{
-								// Pass it to the bot.
-								this._bot.handlePeerDataProducer(
-									{
-										dataProducerId: dataProducer.id,
-										peer
-									});
 
 								break;
 							}
